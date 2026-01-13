@@ -1,6 +1,6 @@
 import React from 'react'
 
-const InputProps = ({ htmlFor, label, image, alt, typeInput, placeholderInput }) => {
+const InputProps = ({ htmlFor, label, image, alt, typeInput, placeholderInput, onChange }) => {
   return (
     <label 
         htmlFor={htmlFor}
@@ -15,6 +15,7 @@ const InputProps = ({ htmlFor, label, image, alt, typeInput, placeholderInput })
           <input 
             type={typeInput}
             placeholder={placeholderInput}
+            onChange={onChange}
             className='outline-none text-[#938DB2]' 
           />
         </span>
