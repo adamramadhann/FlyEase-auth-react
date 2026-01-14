@@ -1,8 +1,29 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import InputProps from '../../components/InputProps'
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigasi = useNavigate();
+
+  const handlesubmit = (e) => {
+    e.preventDefault();
+
+    const emailDb = localStorage.getItem('email');
+    const passwordDb = localStorage.getItem('password');
+
+    if(email === emailDb && password === passwordDb) {
+      localStorage.setItem('isLogin', 'true');
+      navigasi('/home');
+      window.location.reload();
+      
+    } else {
+      alert('akun belum tersedia, silah daftarkan akun kamu');
+    }
+  };
+
+
   return (
     <div 
       className='w-screen h-screen bg-[#4788D7] flex items-center justify-center flex-col' 
@@ -12,7 +33,7 @@ const LoginPage = () => {
       </h1>
 
       {/* form login */}
-      <form className='w-[328px] h-auto' >
+      <form onSubmit={handlesubmit} className='w-[328px] h-auto' >
         <InputProps
           label={'Email'}
           htmlFor={"email"}
@@ -20,6 +41,7 @@ const LoginPage = () => {
           alt={'icon email'}
           typeInput={'text'}
           placeholderInput={'masukan email'}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         {/* input password */}
@@ -30,6 +52,7 @@ const LoginPage = () => {
           alt={'icon password'}
           typeInput={'password'}
           placeholderInput={'masukan password'}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <p 
           className='text-end mt-1 text-white' 
